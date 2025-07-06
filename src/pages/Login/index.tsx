@@ -17,23 +17,37 @@ const schema = yup
   })
   .required();
 
+
 const Login = () => {
   const {
+    handleSubmit,
     control,
     formState: { errors, isValid },
   } = useForm<IFormLogin>({
     resolver: yupResolver(schema),
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues,
     reValidateMode: "onChange",
   });
+
+  const onSubmit = (data: IFormLogin) => {
+  // Simulando uma autenticação
+  if (data.email === "admin@admin.com" && data.password === "123456") {
+    alert("Login realizado com sucesso!");
+    // Aqui poderia redirecionar, ex: window.location.href = "/dashboard"
+  } else {
+    alert("Usuário ou senha inválidos");
+  }
+};
+
 
   return (
     <Container>
       <LoginContainer>
         <Column>
-          <Title>Login</Title>
-          <Spacing />
+        <Title>Login</Title>
+        <Spacing />
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             name="email"
             placeholder="Email"
@@ -49,11 +63,17 @@ const Login = () => {
             errorMessage={errors?.password?.message}
           />
           <Spacing />
-          <Button title="Entrar" />
-        </Column>
+          <Button title="Entrar" onClick={handleSubmit(onSubmit)} disabled={!isValid} />
+
+        </form>
+      </Column>
+
       </LoginContainer>
     </Container>
   );
 };
+
+
+
 
 export default Login;

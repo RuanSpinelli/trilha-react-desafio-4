@@ -39,12 +39,13 @@ export const Row = styled.div`
 `
 
 export const Column = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* faz os itens ocuparem toda a largura possível */
+  justify-content: center; /* opcional, centraliza verticalmente se quiser */
 `
+
 export const Spacing = styled.div`
     margin: 10px 0;
 `
